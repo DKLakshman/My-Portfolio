@@ -100,15 +100,14 @@ export default function App() {
 
       <div className="mq"><div>{[...marquee, ...marquee].map((m, i) => <span key={i}>{m}</span>)}</div></div>
 
-      <section className="numbers-section book-section"><Reveal className="book-page" direction="book" repeat><div className="wrap">
+      <section className="numbers-section"><Reveal className="numbers-reveal" variant="modern" repeat><div className="wrap">
         <Reveal><div className="tag">By the numbers</div></Reveal>
-        <div className="stats timeline-stats">
+        <div className="stats ring-stats">
           {stats.map((s, i) => (
             <Reveal key={s.label} className="stat" delay={i * 0.08}>
               <span className="stat-index">0{i + 1}</span>
-              <CountUp to={s.to} />
+              <div className="stat-ring"><CountUp to={s.to} /><span>+</span></div>
               <span className="stat-label">{s.label}</span>
-              <span className="stat-mark">+</span>
             </Reveal>
           ))}
         </div>
