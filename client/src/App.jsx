@@ -64,7 +64,7 @@ function Activities() {
     return () => clearInterval(id);
   }, [i]);
   return (
-    <section style={{ paddingTop: 20 }}>
+    <section className="activities-section" style={{ paddingTop: 60 }}>
       <div className="wrap">
         <div className="tag" style={{ textAlign: 'center' }}>Beyond code</div>
         <div className="q">
@@ -100,24 +100,33 @@ export default function App() {
 
       <div className="mq"><div>{[...marquee, ...marquee].map((m, i) => <span key={i}>{m}</span>)}</div></div>
 
-      <section><div className="wrap">
+      <section className="numbers-section book-section"><Reveal className="book-page" direction="book" repeat><div className="wrap">
         <Reveal><div className="tag">By the numbers</div></Reveal>
-        <div className="stats">{stats.map((s) => <Reveal key={s.label} className="stat"><CountUp to={s.to} />{s.label}</Reveal>)}</div>
-      </div></section>
+        <div className="stats timeline-stats">
+          {stats.map((s, i) => (
+            <Reveal key={s.label} className="stat" delay={i * 0.08}>
+              <span className="stat-index">0{i + 1}</span>
+              <CountUp to={s.to} />
+              <span className="stat-label">{s.label}</span>
+              <span className="stat-mark">+</span>
+            </Reveal>
+          ))}
+        </div>
+      </div></Reveal></section>
 
       <Projects />
 
-      <section id="services" style={{ paddingTop: 20 }}><div className="wrap">
-        <Reveal><div className="tag">What I use</div><h2>Skills.</h2></Reveal>
-        <div className="grid">
-          {skills.map((s, i) => <Reveal key={s.title} className="svc" delay={i * 0.1}><span className="n">0{i + 1}</span><h3>{s.title}</h3><p>{s.text}</p></Reveal>)}
+      <section id="services" className="skills-section" style={{ paddingTop: 60 }}><div className="wrap">
+        <Reveal variant="lift" repeat><div className="tag">What I use</div><h2>Skills.</h2></Reveal>
+        <div className="grid skills-grid">
+          {skills.map((s, i) => <Reveal key={s.title} className="svc" variant="lift" delay={i * 0.14} repeat><span className="n">0{i + 1}</span><h3>{s.title}</h3><p>{s.text}</p></Reveal>)}
         </div>
       </div></section>
 
       <Journey />
       <Activities />
 
-      <section id="contact" style={{ paddingTop: 20 }}><div className="wrap">
+      <section id="contact" className="contact-section" style={{ paddingTop: 20 }}><div className="wrap">
         <Reveal className="cta">
           <div className="tag">Contact</div>
           <h2>Got an idea?<br /><span className="grad">Let’s build it.</span></h2>

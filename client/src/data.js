@@ -11,6 +11,7 @@ export const stats = [
 export const skills = [
   { title: 'Frontend', text: 'React.js, JavaScript, HTML, CSS, Bootstrap, Tailwind CSS.' },
   { title: 'Backend & databases', text: 'Node.js, Express.js, PHP (Laravel), MySQL, MongoDB.' },
+  { title: 'AI & machine learning', text: 'Python, MediaPipe, EfficientNet, dataset preparation, model training and evaluation.' },
   { title: 'Languages & tools', text: 'Java, Python, C, C++, Kotlin. Git/GitHub, Figma, Postman, Trello.' },
 ];
 

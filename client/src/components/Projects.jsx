@@ -29,7 +29,7 @@ export default function Projects() {
   };
 
   return (
-    <section id="work" style={{ paddingTop: 20 }}>
+    <section id="work" className="projects-section" style={{ paddingTop: 20 }}>
       <div className="wrap sh">
         <Reveal><div className="tag">Selected work</div><h2>Things I’ve built.</h2></Reveal>
         <div className="arrows">
