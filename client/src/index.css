@@ -82,15 +82,26 @@ h1{font-size:clamp(46px,8vw,104px)}
 .arrows button:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
 .track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 24px 30px;scrollbar-width:none;cursor:grab}
 .track::-webkit-scrollbar{display:none}.track.drag{cursor:grabbing;scroll-snap-type:none}
-.card{flex:0 0 min(82vw,420px);scroll-snap-align:start;border:1px solid var(--line);border-radius:26px;background:var(--card);overflow:hidden;transition:transform .35s,border-color .3s,box-shadow .35s;transform-style:preserve-3d}
-.card:hover{border-color:var(--brand);box-shadow:0 24px 60px var(--glow)}
+.deck-wrap{padding-top:10px}
+.deck{height:590px;position:relative;display:flex;justify-content:center;perspective:1600px;overflow:visible}
+.deck-card{position:absolute;top:0;left:0;right:0;width:min(82vw,480px);height:530px;margin-inline:auto;border:1px solid var(--line);border-radius:30px;background:var(--card);overflow:hidden;cursor:pointer;transform-style:preserve-3d;box-shadow:0 24px 70px rgba(0,0,0,.12);transition:border-color .3s,box-shadow .3s,filter .3s}
+.deck-card.is-active{cursor:default;border-color:color-mix(in srgb,var(--brand) 50%,var(--line));box-shadow:0 30px 90px var(--glow)}
+.deck-card:not(.is-active){filter:saturate(.65) brightness(.92)}
+.deck-card:hover{border-color:var(--brand)}
 .art{height:230px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--brand),#012a52)}
 .art::before,.art::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.18);transition:transform .6s}
 .art::before{width:160px;height:160px;right:-30px;top:-40px}.art::after{width:90px;height:90px;left:30px;bottom:-20px}
 .card:hover .art::before{transform:scale(1.5) translate(-20px,20px)}.card:hover .art::after{transform:scale(1.8)}
 .art.b{background:linear-gradient(135deg,#0a0a0a,var(--brand))}.art.c{background:linear-gradient(135deg,#7cc4ff,var(--brand))}.art.d{background:linear-gradient(135deg,#014a8f,#000)}
-.art span{position:absolute;left:22px;bottom:16px;font:700 64px "Space Grotesk",sans-serif;color:rgba(255,255,255,.9)}
+.art span{position:absolute;left:22px;bottom:16px;font:700 76px "Space Grotesk",sans-serif;color:rgba(255,255,255,.9)}
+.art small{position:absolute;right:22px;top:22px;font:600 11px "Space Grotesk",sans-serif;letter-spacing:.14em;color:rgba(255,255,255,.75)}
 .cb{padding:24px}.cb h3{font-size:26px;margin-bottom:8px}.cb p{color:var(--muted);font-size:15px}
+.card-meta{display:flex;justify-content:space-between;color:var(--brand);font:600 11px "Space Grotesk",sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px}
+.deck-footer{display:flex;justify-content:center;align-items:center;color:var(--muted);font-size:12px;padding-top:8px}
+.deck-dots{display:flex;gap:8px;align-items:center}
+.deck-dots button{width:24px;height:3px;padding:0;border:0;background:var(--line);cursor:pointer;transition:width .3s,background .3s}
+.deck-dots button.active{width:48px;background:var(--brand)}
+@media(max-width:620px){.deck{height:530px}.deck-card{height:470px}.deck-footer{align-items:flex-start;gap:16px;flex-direction:column}.project-controls{margin-bottom:20px}}
 .tags{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.tags i{font-style:normal;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;color:var(--muted)}
 .prog{height:3px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden}.prog div{height:100%;width:20%;background:var(--brand);transition:width .2s}
 /* services */
