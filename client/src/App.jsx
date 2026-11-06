@@ -27,7 +27,7 @@ function Hero() {
             <span className="line"><span className="grad">Software Engineer.</span></span>
           </h1>
           <p className="sub">Software Engineering graduate (BSc Hons, SLIIT) and Director at Algowrite. </p>
-          <div className="btns"><a className="btn p" href="#contact">Let’s talk</a><a className="btn" href="#work">See my work</a></div>
+          <div className="btns"><a className="btn p" href="#contact">Let’s talk</a><a className="btn" href="/daham_kaushika.pdf" download="Daham-Kaushika-CV.pdf">Download CV</a></div>
         </div>
         <div className="orb" onPointerMove={move} onPointerLeave={reset}>
           <motion.div className="pw" style={{ x: mx, y: my }}>
