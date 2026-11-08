@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useMotionValue, useScroll, useSpring } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useTheme } from './hooks/useTheme';
 import Reveal from './components/Reveal';
 import CountUp from './components/CountUp';
@@ -8,33 +8,71 @@ import ContactForm from './components/ContactForm';
 import { activities, marquee, skills, stats, timeline } from './data';
 
 function Hero() {
+  // Hero copy and media are kept together so this section is easy to personalize.
+  const content = {
+    name: 'Daham, Kaushika',
+    role: 'Software Engineer',
+    description: 'Software Engineer crafting clear, reliable, and high-impact digital experiences.',
+    photo: '/daham.png',
+    cv: '/daham_kaushika.pdf',
+  };
+  const reduceMotion = useReducedMotion();
   const mx = useSpring(useMotionValue(0), { stiffness: 120, damping: 18 });
   const my = useSpring(useMotionValue(0), { stiffness: 120, damping: 18 });
+  const titleX = useTransform(mx, (value) => value * -0.35);
+  const titleY = useTransform(my, (value) => value * -0.2);
+  const photoX = useTransform(mx, (value) => value * 0.18);
+  const photoY = useTransform(my, (value) => value * 0.12);
+  const buttonX = useSpring(useMotionValue(0), { stiffness: 260, damping: 16 });
+  const buttonY = useSpring(useMotionValue(0), { stiffness: 260, damping: 16 });
   const move = (e) => {
+    if (reduceMotion) return;
     const r = e.currentTarget.getBoundingClientRect();
-    mx.set(((e.clientX - r.left) / r.width - 0.5) * 18);
-    my.set(((e.clientY - r.top) / r.height - 0.5) * 18);
+    mx.set(((e.clientX - r.left) / r.width - 0.5) * 22);
+    my.set(((e.clientY - r.top) / r.height - 0.5) * 22);
   };
   const reset = () => { mx.set(0); my.set(0); };
+  const moveButton = (e) => {
+    if (reduceMotion) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    buttonX.set((e.clientX - r.left - r.width / 2) * 0.18);
+    buttonY.set((e.clientY - r.top - r.height / 2) * 0.18);
+  };
+  const resetButton = () => { buttonX.set(0); buttonY.set(0); };
 
   return (
-    <header className="hero" id="top">
-      <div className="wrap">
-        <div>
-          <div className="pill"><b />Open to work &amp; collaborations</div>
-          <h1>
-            <span className="line"><span>I’m Daham,</span></span>
-            <span className="line"><span className="grad">Software Engineer.</span></span>
-          </h1>
-          <p className="sub">Software Engineering graduate (BSc Hons, SLIIT) and Director at Algowrite. </p>
-          <div className="btns"><a className="btn p" href="#contact">Let’s talk</a><a className="btn" href="/daham_kaushika.pdf" download="Daham-Kaushika-CV.pdf">Download CV</a></div>
-        </div>
-        <div className="orb" onPointerMove={move} onPointerLeave={reset}>
-          <motion.div className="pw" style={{ x: mx, y: my }}>
-            <img src="/daham.png" alt="P A Daham Kaushika Lakshman" width="250" height="300" fetchpriority="high" />
+    <header className="hero" id="top" onPointerMove={move} onPointerLeave={reset}>
+      <motion.div className="hero-word" aria-hidden="true" style={reduceMotion ? undefined : { x: titleX, y: titleY }}>
+        {'PORTFOLIO'.split('').map((letter, index) => (
+          <motion.span key={`${letter}-${index}`} initial={reduceMotion ? false : { y: '110%', opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: index * 0.055, duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}>{letter}</motion.span>
+        ))}
+      </motion.div>
+      <div className="hero-stage wrap">
+        <motion.div className="hero-photo-layer" style={reduceMotion ? undefined : { x: photoX, y: photoY }}>
+          <div className="hero-photo-glow" />
+          <img src={content.photo} alt="P A Daham Kaushika Lakshman" width="700" height="900" fetchpriority="high" />
+        </motion.div>
+        <div className="hero-grid">
+          <motion.div className="hero-copy" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.75, duration: 0.7 }}>
+            <span className="hero-kicker">Hello, I&apos;m</span>
+            <h1>{content.name}</h1>
+            <p className="hero-role">{content.role}</p>
+            <p className="hero-description">{content.description}</p>
+            <div className="btns">
+              <motion.a className="btn p hero-talk" href="#contact" onPointerMove={moveButton} onPointerLeave={resetButton} style={reduceMotion ? undefined : { x: buttonX, y: buttonY }}>Let&apos;s talk</motion.a>
+              <a className="btn" href={content.cv} download="Daham-Kaushika-CV.pdf">Download CV</a>
+            </div>
           </motion.div>
-          <div className="chip">⚛️ React · Node · Mongo</div><div className="chip">🎓 SLIIT · 2026</div><div className="chip">🚀 Director, Algowrite</div>
+          <motion.aside className="hero-aside" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.7 }}>
+            <div className="hero-stats"><span>2026 / SLIIT graduate</span><span>Director / Algowrite</span></div>
+            <div className="hero-socials" aria-label="Social links">
+              <a href="https://github.com/DKLakshman" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+              <a href="https://www.linkedin.com/in/daham-kaushika-2563632b9/" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a>
+              <a href="mailto:kaushikadaham2002@gmail.com">Email <span>↗</span></a>
+            </div>
+          </motion.aside>
         </div>
+        <div className="hero-bottom"><a href="#work">Scroll <i>↓</i></a></div>
       </div>
     </header>
   );
