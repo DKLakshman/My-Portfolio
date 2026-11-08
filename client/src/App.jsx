@@ -85,8 +85,11 @@ function Journey() {
       <div className="wrap">
         <Reveal><div className="tag">Journey</div><h2>How I got here.</h2></Reveal>
         <motion.div className="tl" ref={ref} style={{ '--p': scrollYProgress }}>
-          {timeline.map((s) => (
-            <Reveal key={s.title} className="step"><small>{s.when}</small><h3>{s.title}</h3><p>{s.text}</p></Reveal>
+          {timeline.map((s, i) => (
+            <Reveal key={s.title} className="step">
+              <span className="step-marker" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <small>{s.when}</small><h3>{s.title}</h3><p>{s.text}</p>
+            </Reveal>
           ))}
         </motion.div>
       </div>
