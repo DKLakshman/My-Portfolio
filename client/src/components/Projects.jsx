@@ -10,6 +10,19 @@ const link = { color: 'var(--brand)' };
 export default function Projects() {
   const [items, setItems] = useState(fallbackProjects);
   const [active, setActive] = useState(0);
+  const [cardOffset, setCardOffset] = useState(270);
+  const [compact, setCompact] = useState(false);
+
+  useEffect(() => {
+    const updateOffset = () => {
+      const isCompact = window.innerWidth <= 900;
+      setCompact(isCompact);
+      setCardOffset(isCompact ? 0 : Math.min(270, Math.max(190, window.innerWidth * 0.68)));
+    };
+    updateOffset();
+    window.addEventListener('resize', updateOffset);
+    return () => window.removeEventListener('resize', updateOffset);
+  }, []);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -48,12 +61,12 @@ export default function Projects() {
                 key={p._id ?? p.title}
                 className={`card deck-card ${distance === 0 ? 'is-active' : ''}`}
                 animate={{
-                  x: distance * 270,
+                  x: distance * cardOffset,
                   y: Math.abs(distance) * 14,
-                  scale: distance === 0 ? 1 : Math.max(0.76, 1 - Math.abs(distance) * 0.1),
-                  rotateY: distance * -12,
-                  rotate: distance * 1.5,
-                  opacity: Math.abs(distance) > 2 ? 0 : 1,
+                  scale: compact ? 1 : (distance === 0 ? 1 : Math.max(0.76, 1 - Math.abs(distance) * 0.1)),
+                  rotateY: compact ? 0 : distance * -12,
+                  rotate: compact ? 0 : distance * 1.5,
+                  opacity: compact ? (distance === 0 ? 1 : 0) : (Math.abs(distance) > 2 ? 0 : 1),
                   zIndex: 10 - Math.abs(distance),
                 }}
                 transition={{ type: 'spring', stiffness: 220, damping: 24 }}

@@ -64,7 +64,6 @@ function Hero() {
             </div>
           </motion.div>
           <motion.aside className="hero-aside" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.7 }}>
-            <div className="hero-stats"><span>2026 / SLIIT graduate</span><span>Director / Algowrite</span></div>
             <div className="hero-socials" aria-label="Social links">
               <a href="https://github.com/DKLakshman" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
               <a href="https://www.linkedin.com/in/daham-kaushika-2563632b9/" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a>
@@ -124,7 +123,18 @@ export default function App() {
   const bar = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
   return (
-    <>
+    <div className="app-shell">
+      <svg className="site-network" viewBox="0 0 1200 900" aria-hidden="true" focusable="false">
+        <g className="network-lines">
+          <path d="M70 150 250 80 430 180 620 60 800 160 1010 90 1140 220" />
+          <path d="M30 520 210 390 390 500 570 350 760 480 950 330 1180 520" />
+          <path d="M120 820 300 670 490 780 680 620 860 760 1050 610 1190 720" />
+          <path d="M250 80 210 390M430 180 390 500M620 60 570 350M800 160 760 480M1010 90 950 330M210 390 300 670M390 500 490 780M570 350 680 620M760 480 860 760M950 330 1050 610" />
+        </g>
+        <g className="network-nodes">
+          {[['n1',70,150],['n2',250,80],['n3',430,180],['n4',620,60],['n5',800,160],['n6',1010,90],['n7',1140,220],['n8',30,520],['n9',210,390],['n10',390,500],['n11',570,350],['n12',760,480],['n13',950,330],['n14',1180,520],['n15',120,820],['n16',300,670],['n17',490,780],['n18',680,620],['n19',860,760],['n20',1050,610],['n21',1190,720]].map(([id, cx, cy]) => <circle key={id} className={id} cx={cx} cy={cy} r="3" />)}
+        </g>
+      </svg>
       <motion.div id="bar" style={{ scaleX: bar, width: '100%', transformOrigin: '0 50%' }} />
       <nav>
         <div className="wrap">
@@ -177,6 +187,6 @@ export default function App() {
       </div></section>
 
       <footer><div className="wrap"><span>© {new Date().getFullYear()} P A Daham Kaushika Lakshman</span><span>Software Engineer · Sri Lanka</span></div></footer>
-    </>
+    </div>
   );
 }
