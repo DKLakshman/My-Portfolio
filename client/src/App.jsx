@@ -87,7 +87,7 @@ function Journey() {
         <motion.div className="tl" ref={ref} style={{ '--p': scrollYProgress }}>
           {timeline.map((s, i) => (
             <Reveal key={s.title} className="step">
-              <span className="step-marker" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <span className="step-number" aria-hidden="true">0{i + 1}</span>
               <small>{s.when}</small><h3>{s.title}</h3><p>{s.text}</p>
             </Reveal>
           ))}
