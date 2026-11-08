@@ -52,7 +52,7 @@ export default function Projects() {
           <button onClick={() => move(1)} aria-label="Next project">→</button>
         </div>
       </div>
-      <div className="wrap deck-wrap">
+      <div className="wrap deck-wrap slider-container">
         <div className="deck" aria-live="polite">
           {items.map((p, i) => {
             const distance = distanceFromActive(i);
