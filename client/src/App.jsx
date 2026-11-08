@@ -168,8 +168,20 @@ export default function App() {
 
       <section id="services" className="skills-section" style={{ paddingTop: 60 }}><div className="wrap">
         <Reveal variant="lift" repeat><div className="tag">What I use</div><h2>Skills.</h2></Reveal>
-        <div className="grid skills-grid">
-          {skills.map((s, i) => <Reveal key={s.title} className="svc" variant="lift" delay={i * 0.14} repeat><span className="n">0{i + 1}</span><h3>{s.title}</h3><p>{s.text}</p></Reveal>)}
+        <div className="skill-bands">
+          <Reveal className="skill-bands-intro" variant="lift" repeat>
+            <span className="skills-kicker">How I build</span>
+            <h3>From idea<br /><em>to impact.</em></h3>
+            <p>A practical mix of design thinking, development and problem solving.</p>
+          </Reveal>
+          <div className="skill-bands-list">
+            {skills.map((s, i) => <Reveal key={s.title} className="skill-band" variant="lift" delay={i * 0.1} repeat>
+              <div className="skill-band-top"><span className="n">0{i + 1}</span><span className="skill-band-label">Capability</span></div>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              <span className="skill-band-line" style={{ '--band-width': `${72 + i * 7}%` }} aria-hidden="true" />
+            </Reveal>)}
+          </div>
         </div>
       </div></section>
 
